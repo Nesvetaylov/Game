@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<link href="https://cdn.jsdelivr.net/npm/gotham-pro-font@1.0.0/fonts.min.css" rel="stylesheet">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анимированный Таймер</title>
+    <style>
+        body {
+            font-family: "GothamPro";
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #timer {
+            width: 200px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80px;
+            color: #333;
+            border: 8px solid #333;
+            border-radius: 40px;
+            background-color: #fff;
+            animation: fadeIn 1s ease-in-out;
+            box-shadow: 0 10px #222222;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        #startButton {
+            font-family: "GothamPro";
+            font-weight: 600;
+            /* margin-bottom: 20px; */
+            padding: 10px 20px;
+            width: 260px;
+            height: 80px;
+            font-size: 24px;
+            cursor: pointer;
+            background-color: #a77b44;
+            color: white;
+            border: #634014;
+            border: 5px solid #634014;
+            border-radius: 50px;
+            transition: background-color 0.3s;
+            box-shadow: 0 8px #442b0e;
+            text-shadow: 0 3px #442b0e;
+            transition: all .3s;
+            top: 0;
+            position: relative;
+        }
+
+        #startButton:active {
+            top: 24px;
+            box-shadow: 0 2px 0px #442b0e;
+            transition: all .3s;
+        }
+
+        #startButton.red {
+            background-color: #424242;
+            border-color: #272727;
+            box-shadow: 0 8px #222222;
+            text-shadow: 0 3px #222222;
+            transition: all .3s;
+            top: 0;
+            position: relative;
+        }
+
+        #startButton.red:active {
+            top: 24px;
+            box-shadow: 0 2px 0px #222222;
+            transition: all .3s;
+        }
+
+        .dark-red-button {
+            font-family: "GothamPro";
+            font-weight: 600;
+            width: 320px;
+            height: 100px;
+            border: 5px solid #634014;
+            border-radius: 50px;
+            background-color: #a77b44;
+            color: white;
+            cursor: pointer;
+            font-size: 24px;
+            padding: 10px;
+            text-align: center;
+            margin: 15px;
+            box-shadow: 0 8px #442b0e;
+            text-shadow: 0 3px #442b0e;
+            transition: all .3s;
+            top: 0;
+            position: relative;
+        }
+
+        .dark-red-button:active {
+            top: 24px;
+            box-shadow: 0 2px 0px #442b0e;
+            transition: all .3s;
+        }
+
+
+        .dark-red-button.active {
+            font-family: "GothamPro";
+            background-color: #424242;
+            border-color: #272727;
+            box-shadow: none;
+            box-shadow: 0 8px #222222;
+            text-shadow: 0 3px #222222;
+            top: 0;
+            transition: all .3s;
+            position: relative;
+        }
+
+        .dark-red-button.active:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background: rgba(255, 255, 255, 0.2); */
+            border-radius: 50px;
+            z-index: -1;
+            animation: glow 1s infinite;
+        }
+
+        .dark-red-button.active:active {
+            top: 24px;
+            box-shadow: 0 2px 0px #222222;
+            transition: all .3s;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .score-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        #score_first_team {
+            margin-right: 130px;
+        }
+
+        #score_second_team {
+            margin-left: 130px;
+        }
+
+        #score_first_team,
+        #score_second_team {
+            width: 160px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80px;
+            color: #333;
+            border: 8px solid #333;
+            border-radius: 20px;
+            background-color: #fff;
+            animation: fadeIn 1s ease-in-out;
+            box-shadow: 0 10px #222222;
+            cursor: pointer;
+            margin-top: 15px;
+            /* Add cursor pointer to indicate clickability */
+        }
+
+        .team-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 10px;
+            position: absolute;
+            top: -30px;
+        }
+
+        .score-container {
+            position: relative;
+        }
+
+        .team-name:first-child {
+            left: 0;
+            color: white;
+        }
+
+        .team-name:last-child {
+            right: 0;
+            color: white;
+        }
+
+
+        #timer {
+            font-size: 80px;
+            margin: 0 20px;
+        }
+    </style>
+</head>
+<!-- background-image: radial-gradient(circle, #3b5376, #243348); -->
+
+<body style="background-image: radial-gradient(circle, #3b5376, #1c2839);">
+    <button id="startButton">Запустить таймер</button>
+    <div class="timer-container">
+        <div class="score-container">
+            <div class="team-name">ФУНДАМЫ+1</div>
+            <div class="score_team">
+                <div id="score_first_team">0</div>
+            </div>
+            <div id="timer">30</div>
+            <div class="score-team">
+                <div id="score_second_team">0</div>
+            </div>
+            <div class="team-name">МАТОБЕСЫ</div>
+        </div>
+    </div>
+
+
+    <div class="button-container">
+        <!-- добавляем 4 ряда по 5 кнопок -->
+        <div class="button-row" class="shadow-text">
+            <button class="dark-red-button">СТРАНЫ</button>
+            <button class="dark-red-button">ГОРОДА</button>
+            <button class="dark-red-button">ФИРМЫ ТЕХНИКИ</button>
+            <button class="dark-red-button">БРЕНДЫ ОДЕЖДЫ</button>
+            <button class="dark-red-button">МАРКИ МАШИН</button>
+        </div>
+        <div class="button-row">
+            <button class="dark-red-button">БРЕНДЫ КОСМЕТИКИ</button>
+            <button class="dark-red-button">ФУТБОЛЬНЫЕ КОМАНДЫ</button>
+            <button class="dark-red-button">ИГРОКИ</button>
+            <button class="dark-red-button">КОМПЬЮТЕРНЫЕ ИГРЫ</button>
+            <button class="dark-red-button">КОМПАНИИ ПО ПРОИЗВОДСТВУ ИГР</button>
+        </div>
+        <div class="button-row">
+            <button class="dark-red-button">ГЕРОИ DOTA 2</button>
+            <button class="dark-red-button">КИБЕРСПОРТИВНЫЕ ОРГАНИЗАЦИИ</button>
+            <button class="dark-red-button">ЯЗЫКИ ПРОГРАММИРОВАНИЯ</button>
+            <button class="dark-red-button">ФИЛЬМЫ</button>
+            <button class="dark-red-button">СЕРИАЛЫ</button>
+        </div>
+        <div class="button-row">
+            <button class="dark-red-button">МУЛЬТФИЛЬМЫ</button>
+            <button class="dark-red-button">АНИМЕ</button>
+            <button class="dark-red-button">ИСПОЛНИТЕЛИ</button>
+            <button class="dark-red-button">МУЗЫКАЛЬНЫЕ ГРУППЫ</button>
+            <button class="dark-red-button">АКТЕРЫ</button>
+        </div>
+        <div class="button-row">
+            <button class="dark-red-button">АЛКОГОЛЬ</button>
+            <button class="dark-red-button">ПЕРСОНАЖИ</button>
+            <button class="dark-red-button">СТРИМЕРЫ</button>
+            <button class="dark-red-button">ЭНЕРГЕТИКИ</button>
+            <button class="dark-red-button">ВИДЫ СПОРТА</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the score elements
+        const scoreFirstTeamElement = document.getElementById('score_first_team');
+        const scoreSecondTeamElement = document.getElementById('score_second_team');
+
+        // Add event listeners to the score elements
+        scoreFirstTeamElement.addEventListener('click', () => {
+            let currentScore = parseInt(scoreFirstTeamElement.textContent);
+            scoreFirstTeamElement.textContent = currentScore + 1;
+        });
+
+        scoreSecondTeamElement.addEventListener('click', () => {
+            let currentScore = parseInt(scoreSecondTeamElement.textContent);
+            scoreSecondTeamElement.textContent = currentScore + 1;
+        });
+        let timeLeft = 30; // Установленное время на 10 секунд
+        const timerElement = document.getElementById('timer');
+        const startButton = document.getElementById('startButton');
+        let countdown; // Переменная для хранения интервала
+        const buttons = document.querySelectorAll('.dark-red-button');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                button.classList.toggle('active');
+            });
+        });
+
+        startButton.addEventListener('click', () => {
+            timeLeft = 30; // Сброс времени
+            timerElement.innerHTML = timeLeft; // Обновление отображаемого времени
+            clearInterval(countdown); // Очистка предыдущего интервала, если он есть
+            startButton.classList.remove('red'); // Удаление красного класса, если он есть
+
+            countdown = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    timerElement.innerHTML = "0";
+                    startButton.classList.add('red'); // Добавление красного класса
+                } else {
+                    timerElement.innerHTML = timeLeft;
+                    timeLeft--;
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
