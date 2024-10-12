@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Анимированный Таймер</title>
+    <title>Шоу "Кто больше?"</title>
     <style>
         body {
             font-family: "GothamPro";
@@ -33,7 +33,6 @@
             animation: fadeIn 1s ease-in-out;
             box-shadow: 0 10px #222222;
         }
-
 
         @keyframes fadeIn {
             from {
@@ -136,7 +135,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* background: rgba(255, 255, 255, 0.2); */
             border-radius: 50px;
             z-index: -1;
             animation: glow 1s infinite;
@@ -199,7 +197,6 @@
             box-shadow: 0 10px #222222;
             cursor: pointer;
             margin-top: 15px;
-            /* Add cursor pointer to indicate clickability */
         }
 
         .team-name {
@@ -231,7 +228,6 @@
         }
     </style>
 </head>
-<!-- background-image: radial-gradient(circle, #3b5376, #243348); -->
 
 <body style="background-image: radial-gradient(circle, #3b5376, #1c2839);">
     <button id="startButton">Запустить таймер</button>
@@ -251,7 +247,6 @@
 
 
     <div class="button-container">
-        <!-- добавляем 4 ряда по 5 кнопок -->
         <div class="button-row" class="shadow-text">
             <button class="dark-red-button">СТРАНЫ</button>
             <button class="dark-red-button">ГОРОДА</button>
@@ -290,11 +285,9 @@
     </div>
 
     <script>
-        // Get the score elements
         const scoreFirstTeamElement = document.getElementById('score_first_team');
         const scoreSecondTeamElement = document.getElementById('score_second_team');
 
-        // Add event listeners to the score elements
         scoreFirstTeamElement.addEventListener('click', () => {
             let currentScore = parseInt(scoreFirstTeamElement.textContent);
             scoreFirstTeamElement.textContent = currentScore + 1;
@@ -304,7 +297,7 @@
             let currentScore = parseInt(scoreSecondTeamElement.textContent);
             scoreSecondTeamElement.textContent = currentScore + 1;
         });
-        let timeLeft = 30; // Установленное время на 10 секунд
+        let timeLeft = 30; // Установленное время на 30 секунд
         const timerElement = document.getElementById('timer');
         const startButton = document.getElementById('startButton');
         let countdown; // Переменная для хранения интервала
